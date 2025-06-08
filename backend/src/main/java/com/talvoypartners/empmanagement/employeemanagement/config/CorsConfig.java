@@ -1,6 +1,5 @@
 package com.talvoypartners.empmanagement.employeemanagement.config;
 
-// src/main/java/com/talvoypartners/empmanagement/config/CorsConfig.java
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;

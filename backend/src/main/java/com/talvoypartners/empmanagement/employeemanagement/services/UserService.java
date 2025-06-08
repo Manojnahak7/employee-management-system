@@ -17,7 +17,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // In-memory store for reset tokens, production me DB use karo
     private Map<String, String> resetTokens = new HashMap<>();
 
     public String generateResetToken(String email) {
@@ -25,7 +24,6 @@ public class UserService {
         if (userOptional.isEmpty()) {
             throw new RuntimeException("User not found");
         }
-        // Generate random token
         String token = UUID.randomUUID().toString();
         resetTokens.put(token, email);  // store token and email
         return token;
@@ -44,7 +42,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
 
-        // Token use ho gaya, delete kar do
         resetTokens.remove(token);
     }
 }

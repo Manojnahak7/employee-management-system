@@ -29,13 +29,11 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Get the token from the Authorization header
         String authHeader = request.getHeader("Authorization");
 
         String token = null;
         String username = null;
 
-        // Check if header is present and starts with Bearer
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7); // Remove "Bearer " prefix
             username = jwtUtil.extractUsername(token); // Extract username from token
@@ -51,12 +49,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // Set the authentication to security context
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
-        // Continue with the filter chain
         filterChain.doFilter(request, response);
     }
 }

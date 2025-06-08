@@ -22,7 +22,6 @@ public class ForgotPasswordController {
         String resetToken = userService.generateResetToken(email);
         String resetLink = "http://localhost:9090/api/auth/reset-password?token=" + resetToken;
 
-        // Development me email bhejne ki jagah frontend ko ya Postman me dikhana
         return ResponseEntity.ok(Map.of("message", "Reset link generated", "resetLink", resetLink));
     }
 

@@ -38,7 +38,6 @@ public class AuthService {
 
         userRepo.save(user);
 
-        // Pass userDetails + name to generate token
         return new AuthResponse(jwtUtil.generateToken(user, req.getName()));
     }
 
@@ -49,7 +48,6 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        // Extract name from employee and pass to JWT
         String name = user.getEmployee().getName();
 
         return new AuthResponse(jwtUtil.generateToken(user, name));
