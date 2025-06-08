@@ -20,7 +20,6 @@ public class UserController {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    // Get profile of logged-in user (return Employee details including User info if needed)
     @GetMapping("/profile")
     public ResponseEntity<Employee> getProfile(HttpServletRequest request) {
         String token = extractTokenFromRequest(request);
@@ -34,7 +33,6 @@ public class UserController {
             throw new RuntimeException("Employee details not found for user");
         }
 
-        // Optional: To avoid sending sensitive info like password
         if (employee.getUser() != null) {
             employee.getUser().setPassword(null);
         }
@@ -42,7 +40,6 @@ public class UserController {
         return ResponseEntity.ok(employee);
     }
 
-    // Update profile (update Employee details)
     @PutMapping("/profile")
     public ResponseEntity<Employee> updateProfile(HttpServletRequest request, @RequestBody Employee updatedEmployee) {
         String token = extractTokenFromRequest(request);
@@ -56,19 +53,16 @@ public class UserController {
             throw new RuntimeException("Employee details not found for user");
         }
 
-        // Update employee fields from updatedEmployee
         employee.setName(updatedEmployee.getName());
         employee.setMobile(updatedEmployee.getMobile());
         employee.setAddress(updatedEmployee.getAddress());
         employee.setOffice(updatedEmployee.getOffice());
 
-        // Save user (assuming cascade ALL on Employee)
         userRepository.save(user);
 
         return ResponseEntity.ok(employee);
     }
 
-    // Helper method to extract JWT token from Authorization header
     private String extractTokenFromRequest(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
