@@ -29,3 +29,7 @@ Thumbs.db
 # Other temporary or local files
 *.tmp
 *.swp
+
+
+# Ignore Spring Boot config files containing sensitive data
+/backend/src/main/resources/application.properties
